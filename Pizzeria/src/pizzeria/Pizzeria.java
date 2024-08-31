@@ -23,7 +23,7 @@ public class Pizzeria {
         pizza1.setTamano("Mediano");
         String tamano = pizza1.getTamano();
         System.out.println("Ud ha comprado una pizza de tamaño "+tamano);
-        //Test github
+        //Test github 2
     }
     
 }
