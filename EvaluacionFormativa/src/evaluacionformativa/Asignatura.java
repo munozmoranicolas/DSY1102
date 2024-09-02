@@ -84,6 +84,28 @@ public class Asignatura {
         this.nota3 = nota3;
     }
     
+    public float getNotaPresentacion(){
+        float notaPresentacion = (this.nota1*0.3f)+(this.nota2*0.3f)+(this.nota3*0.4f);
+        return notaPresentacion;
+    }
     
+    public String getEximido(float notaPresentacion){
+        if(notaPresentacion >= 5.0f){
+            return "Eximido";
+        }
+        else{
+            return "No Eximido";
+        }
+    }
     
+    public String getNotaFinal(float notaPresentacion,float notaExamen){
+        float notaFinal = (notaPresentacion*0.6f)+(notaExamen*0.4f); 
+        if(notaFinal >= 4.0f){
+            return "El estudiante "+this.estudiante.getNombre()+" Aprobo con nota final :"+notaFinal;
+        }
+        else{
+            return "El estudiante "+this.estudiante.getNombre()+" Reprobo con nota final :"+notaFinal;
+        } 
+        
+    }
 }
