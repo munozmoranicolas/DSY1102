@@ -15,6 +15,11 @@ public class Scol {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Producto producto1 = new Producto("PROD001", "Producto Prueba", 1000);
+        CarritoCompra carrito = new CarritoCompra(producto1.toString(), 1000);
+        Cliente cliente1 = new Cliente("1111-1", "Juan", carrito);
+        
+        System.out.println(cliente1.getCarrito().getTotal());
     }
     
 }
