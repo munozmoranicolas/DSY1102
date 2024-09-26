@@ -5,6 +5,8 @@
 package evaluacionformativa;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 /**
  *
  * @author munoz
@@ -17,14 +19,15 @@ public class EvaluacionFormativa {
     public static void main(String[] args) {
         // TODO code application logic here
         //Formato fecha
-        //SimpleDateFormat fecha_formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat fecha_formato = new SimpleDateFormat("dd/MM/yyyy");
         
         //Informacion Estudiantes
-        Date fecha_nacimiento1 = new Date(1994,11,28);
+        //Date fecha_nacimiento1 = new Date(1994,11,28);
+        LocalDate fecha_nacimiento1 = LocalDate.of(1994, Month.NOVEMBER, 28);
         Alumno estudiante1 = new Alumno("11.111.111-1", "Amalia Nunes", 20,fecha_nacimiento1);
-        //System.out.println(fecha_formato.format(estudiante1.getFecha_nacimiento()));
+        System.out.println(estudiante1.getFecha_nacimiento());
         
-        Date fecha_nacimiento2 = new Date(1994,10,29);
+        LocalDate fecha_nacimiento2 = LocalDate.of(2000,Month.OCTOBER,15);
         Alumno estudiante2 = new Alumno("22.222.222-2", "Francisco Fuentes", 29,fecha_nacimiento2);
         //System.out.println(fecha_formato.format(estudiante1.getFecha_nacimiento()));
         
