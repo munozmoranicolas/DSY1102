@@ -41,55 +41,7 @@ public class Gestionreservas {
                 clienteRegistrado = true;
             }
         } while (!clienteRegistrado);
-        
-        boolean menu = true;
-        do {           
-            try {
-                System.out.println("Seleccione hotel de preferencia");
-                System.out.println("1.- Hilton");
-                System.out.println("2.- HUB");
-                System.out.println("3.- Salir");
-                String opcion = input.next();
-                switch (opcion) {
-                    case "1" -> {
-                        Hotel hotel_select = hotel1;
-                        
-                    }
-                    case "2" -> {                    
-                        Hotel hotel_select = hotel2;
-                    }
-                    case "3" -> {
-                        System.out.println("Adios");
-                        menu = false;
-                        break;
-                    }
-                    default -> System.err.println("Opcion no valida!");
-                }
-            } catch (Exception e) {
-                    System.err.println("Opcion no valida!");
-            }
-            
-        } while (menu);
-        
-        
-        /*Cliente cliente2 = new Cliente("C0002", "Andrea");
-        
-        hotel1.agregarHabitacion(habitacion1);
-        hotel1.listarHabitaciones();
-        
-        hotel2.agregarHabitacion(habitacion1);
-        hotel2.listarHabitaciones();
-        
-        if(hotel1.buscarHabitacion("101")){
-            for(Habitacion habitacion :hotel1.getHabitacionesDisponibles()){
-                if(habitacion.getNumeroHabitacion().equals("101")){
-                    reserva1.agregarReserva(habitacion);
-                    cliente1.agregarReserva(reserva1);
-                    hotel1.eliminarHabitacion("101");
-                }
-            }
-        }*/
-        
+               
         
     }
     
