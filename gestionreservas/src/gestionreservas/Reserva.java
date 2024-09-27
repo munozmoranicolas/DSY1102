@@ -25,6 +25,7 @@ public class Reserva {
     }
        
     public boolean agregarReserva(Habitacion habitacion){
+        this.hotel.eliminarHabitacion(habitacion.getNumeroHabitacion());
         return habitacionReservada.add(habitacion);
     }
 
@@ -34,6 +35,11 @@ public class Reserva {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva{" + "hotel=" + hotel + ", habitacionReservada=" + habitacionReservada + '}';
     }
 
     

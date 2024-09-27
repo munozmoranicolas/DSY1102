@@ -29,5 +29,10 @@ public class Cliente {
     public boolean agregarReserva(Reserva reserva){
         return reservasRealizadas.add(reserva);
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", nombre=" + nombre + ", reservasRealizadas=" + reservasRealizadas + '}';
+    }
     
 }

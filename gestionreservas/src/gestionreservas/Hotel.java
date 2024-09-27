@@ -33,7 +33,7 @@ public class Hotel {
     public boolean eliminarHabitacion(String numeroHabitacion){
         for(Habitacion habitacion : habitacionesDisponibles){
             if(habitacion.getNumeroHabitacion().equals(numeroHabitacion)){
-                habitacionesDisponibles.remove(habitacion);
+                return habitacionesDisponibles.remove(habitacion);
             }
         }
         return false;

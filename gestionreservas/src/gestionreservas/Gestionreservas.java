@@ -34,14 +34,27 @@ public class Gestionreservas {
         
         
         boolean clienteRegistrado = false;
+        Cliente cliente1 = new Cliente();
         do {            
             String nombreCliente = input.nextLine();
             if(!nombreCliente.isEmpty()){
-                Cliente cliente1 = new Cliente("C0001", nombreCliente);
+                cliente1 = new Cliente("C0001", nombreCliente);
                 clienteRegistrado = true;
             }
         } while (!clienteRegistrado);
-               
+        
+        System.out.println("Selecciona la habitacion : ");
+        for(Habitacion habitacion : hotel1.getHabitacionesDisponibles()){
+            System.out.println((hotel1.getHabitacionesDisponibles().indexOf(habitacion) +1)+ ".- "+ habitacion.getNumeroHabitacion());
+        }
+        int indexHabitacion = input.nextInt();
+        System.out.println("La habitacion seleccionada es "+ hotel1.getHabitacionesDisponibles().get(indexHabitacion-1));
+        Reserva reserva1 = new Reserva(hotel1);
+        reserva1.agregarReserva(hotel1.getHabitacionesDisponibles().get(indexHabitacion-1));
+        cliente1.agregarReserva(reserva1);
+        System.out.println(reserva1.toString());
+        System.out.println(cliente1.toString());
+        
         
     }
     
