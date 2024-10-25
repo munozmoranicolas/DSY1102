@@ -26,11 +26,11 @@ public class EmpleadoPorHora extends Empleado implements BonusCalculable{
     
     @Override
     public double calcularBonus() {
-        if(horasTrabajadas > 160){
-            return 0.2;
+        if(horasTrabajadas >= 160){
+            return horasTrabajadas*1.2;
         }
         else{
-            return 0.1;
+            return horasTrabajadas*1.1;
         }
     }
 }

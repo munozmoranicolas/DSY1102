@@ -10,7 +10,7 @@ package sge.polimorfismo;
  */
 public abstract class Empleado {
     private String idEmpleado;
-    private String nombre;
+    protected String nombre;
     private double sueldoBase;
 
     public Empleado(String idEmpleado, String nombre, double sueldoBase) {

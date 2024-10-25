@@ -12,16 +12,17 @@ import java.util.ArrayList;
  */
 public class Departamento {
     private String idDepartamento;
-    private String nombre;
+    protected String nombre;
     private ArrayList<Empleado> empleados;
 
     public Departamento() {
+        this.empleados = new ArrayList<>();
     }
 
-    public Departamento(String idDepartamento, String nombre, ArrayList<Empleado> empleados) {
+    public Departamento(String idDepartamento, String nombre) {
         this.idDepartamento = idDepartamento;
         this.nombre = nombre;
-        this.empleados = empleados;
+        this.empleados = new ArrayList<>();
     }
 
     public String getIdDepartamento() {
@@ -49,7 +50,7 @@ public class Departamento {
     }
 
     public void agregarEmpleado(Empleado empleado){
-        
+        this.empleados.add(empleado);
     }
     
     public double calcularCostoTotalSalarios(){
