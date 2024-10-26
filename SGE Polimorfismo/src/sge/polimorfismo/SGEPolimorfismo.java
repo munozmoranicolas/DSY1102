@@ -26,12 +26,12 @@ public class SGEPolimorfismo {
         departamento.agregarEmpleado(empleadoPorHora);
 
         // Prueba de cálculo de salarios individuales
-        System.out.println("Salario de " + empleadoAsalariado.nombre + ": " + empleadoAsalariado.calcularSalario());
-        System.out.println("Salario de " + empleadoPorHora.nombre + ": " + empleadoPorHora.calcularSalario());
+        System.out.println("Salario de " + empleadoAsalariado.getNombre() + ": " + empleadoAsalariado.calcularSalario());
+        System.out.println("Salario de " + empleadoPorHora.getNombre() + ": " + empleadoPorHora.calcularSalario());
 
         // Prueba de cálculo de bonificaciones individuales
-        System.out.println("Bonificación de " + empleadoAsalariado.nombre + ": " + empleadoAsalariado.calcularBonus());
-        System.out.println("Bonificación de " + empleadoPorHora.nombre + ": " + empleadoPorHora.calcularBonus());
+        System.out.println("Bonificación de " + empleadoAsalariado.getNombre() + ": " + empleadoAsalariado.calcularBonus());
+        System.out.println("Bonificación de " + empleadoPorHora.getNombre() + ": " + empleadoPorHora.calcularBonus());
 
         // Prueba de cálculo del costo total de salarios del departamento
         System.out.println("Costo total de salarios en " + departamento.nombre + ": " + departamento.calcularCostoTotalSalarios());
