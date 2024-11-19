@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +24,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
      */
     public TaskManagerGUI() {
         initComponents();
+        btnCompletar.setVisible(false);
     }
 
     /**
@@ -43,6 +46,9 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         cbPrioridad = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstTareas = new javax.swing.JList<>();
+        btnCompletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +74,22 @@ public class TaskManagerGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Formulario");
 
+        lstTareas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstTareas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lstTareasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstTareas);
+
+        btnCompletar.setBackground(new java.awt.Color(51, 255, 51));
+        btnCompletar.setText("Completar");
+        btnCompletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompletarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,9 +98,8 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(lblPrioridad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblFechaLimite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -87,11 +108,19 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtFechaLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(cbPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCompletar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(175, 175, 175)
-                        .addComponent(jLabel1)))
-                .addContainerGap(109, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +141,11 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                     .addComponent(cbPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistrar)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(btnCompletar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,17 +165,48 @@ public class TaskManagerGUI extends javax.swing.JFrame {
 
         try{
             Date fecha = formatoFecha.parse(fechaLimiteStr);
-            Task tarea = new Task(1, nombre, fecha,prioridad);
+            int id = proyecto.getTareas().size()+1;
+            Task tarea = new Task(id, nombre, fecha,prioridad);
             proyecto.agregarTarea(tarea);
-            System.out.println("Listo");
+            System.out.println("Listo...\n");
+            
+            DefaultListModel<String> modelo = new DefaultListModel<>();
+            for(Task tar : proyecto.getTareas()){
+                modelo.addElement(tar.getNombre());
+            }
+            lstTareas.setModel(modelo);
         }
         catch(ParseException e){
             System.err.println("Error "+ e);
         }
-        
-        /*DefaultTableModel modeloTabla = (DefaultTableModel) tbTareas.getModel();
-        modeloTabla.addRow(new Object[]{nombre, formatoFecha.format(fechaLimiteStr), prioridad});        */    
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void lstTareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTareasMouseClicked
+        // TODO add your handling code here:
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        
+        int index = lstTareas.getSelectedIndex();
+        Task tarea = proyecto.getTareas().get(index);
+        txtNombre.setText(tarea.getNombre());
+        txtFechaLimite.setText(formatoFecha.format(tarea.getFechaLimite()));
+        cbPrioridad.setSelectedIndex(tarea.getPrioridad());
+        tarea.setCompletada(true);
+        
+        btnRegistrar.setVisible(false);
+        btnCompletar.setVisible(true);
+        
+        System.out.println("Tarea : "+proyecto.getTareas().get(index));
+    }//GEN-LAST:event_lstTareasMouseClicked
+
+    private void btnCompletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletarActionPerformed
+        // TODO add your handling code here:
+        btnCompletar.setVisible(false);
+        btnRegistrar.setVisible(true);
+        
+        txtNombre.setText("");
+        txtFechaLimite.setText("");
+        cbPrioridad.setSelectedIndex(0);
+    }//GEN-LAST:event_btnCompletarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,19 +239,23 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TaskManagerGUI().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCompletar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbPrioridad;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFechaLimite;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrioridad;
+    private javax.swing.JList<String> lstTareas;
     private javax.swing.JTextField txtFechaLimite;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

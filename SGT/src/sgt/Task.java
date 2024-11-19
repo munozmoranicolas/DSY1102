@@ -41,6 +41,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return nombre + " (Prioridad: " + prioridad + ", Fecha Límite: " + fechaLimite + ")";
+        return "ID : "+getIdTask()+
+                "\nNombre : "+getNombre()+
+                "\nFecha Limite : "+getFechaLimite()+
+                "\nPrioridad : "+getPrioridad()+
+                "\nEstado : "+isCompletada();
     }
 }
