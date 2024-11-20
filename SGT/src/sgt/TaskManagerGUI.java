@@ -25,6 +25,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
     public TaskManagerGUI() {
         initComponents();
         btnCompletar.setVisible(false);
+        cbFiltroPrioridad.setSelectedIndex(3);
     }
 
     /**
@@ -51,9 +52,15 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         btnCompletar = new javax.swing.JButton();
         txtFiltroNombre = new javax.swing.JTextField();
         lblFiltroNombre = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbFiltroPrioridad = new javax.swing.JComboBox<>();
         lblFiltroPrioridad = new javax.swing.JLabel();
         btnFiltro = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
+        lblCompletas = new javax.swing.JLabel();
+        lblIncompletas = new javax.swing.JLabel();
+        lblCanTotal = new javax.swing.JLabel();
+        lblCanCompletas = new javax.swing.JLabel();
+        lblCanIncompletas = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,11 +104,23 @@ public class TaskManagerGUI extends javax.swing.JFrame {
 
         lblFiltroNombre.setText("Nombre");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja" }));
+        cbFiltroPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Media", "Baja", "Ninguna" }));
+        cbFiltroPrioridad.setToolTipText("");
 
         lblFiltroPrioridad.setText("Prioridad");
 
         btnFiltro.setText("Filtrar");
+        btnFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltroActionPerformed(evt);
+            }
+        });
+
+        lblTotal.setText("Total");
+
+        lblCompletas.setText("Completas");
+
+        lblIncompletas.setText("Incompletas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,14 +151,27 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtFiltroNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbFiltroPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnFiltro))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCanTotal))
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCompletas)
+                                    .addComponent(lblCanCompletas))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblIncompletas)
+                                    .addComponent(lblCanIncompletas))
+                                .addGap(37, 37, 37))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(lblFiltroNombre)
@@ -175,11 +207,25 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFiltroNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbFiltroPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFiltro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTotal)
+                    .addComponent(lblCompletas)
+                    .addComponent(lblIncompletas))
+                .addGap(12, 12, 12)
+                .addComponent(lblCanCompletas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCanTotal)
+                        .addContainerGap(121, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCanIncompletas)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -202,13 +248,17 @@ public class TaskManagerGUI extends javax.swing.JFrame {
             int id = proyecto.getTareas().size()+1;
             Task tarea = new Task(id, nombre, fecha,prioridad);
             proyecto.agregarTarea(tarea);
-            System.out.println("Listo...\n");
+            //System.out.println("Listo...\n");
             
-            DefaultListModel<String> modelo = new DefaultListModel<>();
+            DefaultListModel<Task> modelo = new DefaultListModel<>();
             for(Task tar : proyecto.getTareas()){
-                modelo.addElement(tar.getNombre());
+                modelo.addElement(tar);
             }
+            txtNombre.setText("");
+            txtFechaLimite.setText("");
             lstTareas.setModel(modelo);
+            
+            
         }
         catch(ParseException e){
             System.err.println("Error "+ e);
@@ -219,8 +269,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         
-        int index = lstTareas.getSelectedIndex();
-        Task tarea = proyecto.getTareas().get(index);
+        Task tarea = lstTareas.getSelectedValue();
         txtNombre.setText(tarea.getNombre());
         txtFechaLimite.setText(formatoFecha.format(tarea.getFechaLimite()));
         cbPrioridad.setSelectedIndex(tarea.getPrioridad());
@@ -229,7 +278,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         btnRegistrar.setVisible(false);
         btnCompletar.setVisible(true);
         
-        System.out.println("Tarea : "+proyecto.getTareas().get(index));
+        System.out.println("Tarea : "+tarea);
     }//GEN-LAST:event_lstTareasMouseClicked
 
     private void btnCompletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompletarActionPerformed
@@ -241,6 +290,33 @@ public class TaskManagerGUI extends javax.swing.JFrame {
         txtFechaLimite.setText("");
         cbPrioridad.setSelectedIndex(0);
     }//GEN-LAST:event_btnCompletarActionPerformed
+
+    private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
+        // TODO add your handling code here:
+        System.out.println("btnFiltroMouseClicked");
+        String filtroNombre = txtFiltroNombre.getText();
+        int filtroPrioridad = cbFiltroPrioridad.getSelectedIndex();
+        //System.out.println(filtroNombre);
+        
+        DefaultListModel<Task> modelo = new DefaultListModel<>();
+        for(Task tar : proyecto.getTareas()){
+            boolean criterio = true;
+
+            if(!filtroNombre.isEmpty() && !tar.getNombre().equals(filtroNombre)){
+                criterio = false;
+            }
+            
+            if(filtroPrioridad != 3 && tar.getPrioridad() != filtroPrioridad){
+                criterio = false;
+            }
+            
+            if(criterio){
+                modelo.addElement(tar);
+            }
+            
+        }
+        lstTareas.setModel(modelo);
+    }//GEN-LAST:event_btnFiltroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -284,16 +360,22 @@ public class TaskManagerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JComboBox<String> cbFiltroPrioridad;
     private javax.swing.JComboBox<String> cbPrioridad;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCanCompletas;
+    private javax.swing.JLabel lblCanIncompletas;
+    private javax.swing.JLabel lblCanTotal;
+    private javax.swing.JLabel lblCompletas;
     private javax.swing.JLabel lblFechaLimite;
     private javax.swing.JLabel lblFiltroNombre;
     private javax.swing.JLabel lblFiltroPrioridad;
+    private javax.swing.JLabel lblIncompletas;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrioridad;
-    private javax.swing.JList<String> lstTareas;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JList<Task> lstTareas;
     private javax.swing.JTextField txtFechaLimite;
     private javax.swing.JTextField txtFiltroNombre;
     private javax.swing.JTextField txtNombre;

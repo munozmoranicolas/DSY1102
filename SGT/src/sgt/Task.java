@@ -4,6 +4,7 @@
  */
 package sgt;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -41,10 +42,11 @@ public class Task {
 
     @Override
     public String toString() {
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         return "ID : "+getIdTask()+
-                "\nNombre : "+getNombre()+
-                "\nFecha Limite : "+getFechaLimite()+
-                "\nPrioridad : "+getPrioridad()+
-                "\nEstado : "+isCompletada();
+                "\n Nombre : "+getNombre()+
+                "\n Fecha Limite : "+formatoFecha.format(getFechaLimite())+
+                "\n Prioridad : "+getPrioridad()+
+                "\n Estado : "+isCompletada();
     }
 }
