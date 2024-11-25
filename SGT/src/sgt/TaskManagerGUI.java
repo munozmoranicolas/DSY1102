@@ -220,12 +220,9 @@ public class TaskManagerGUI extends javax.swing.JFrame {
                 .addComponent(lblCanCompletas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCanTotal)
-                        .addContainerGap(121, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCanIncompletas)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(lblCanTotal)
+                    .addComponent(lblCanIncompletas))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         pack();
@@ -233,6 +230,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
 
     private void cbPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPrioridadActionPerformed
         // TODO add your handling code here:
+        System.out.println(evt);
     }//GEN-LAST:event_cbPrioridadActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -293,7 +291,7 @@ public class TaskManagerGUI extends javax.swing.JFrame {
 
     private void btnFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltroActionPerformed
         // TODO add your handling code here:
-        System.out.println("btnFiltroMouseClicked");
+        //System.out.println("btnFiltroMouseClicked");
         String filtroNombre = txtFiltroNombre.getText();
         int filtroPrioridad = cbFiltroPrioridad.getSelectedIndex();
         //System.out.println(filtroNombre);
